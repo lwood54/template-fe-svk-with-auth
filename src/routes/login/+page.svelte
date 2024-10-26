@@ -4,15 +4,15 @@
 	import FormCard from '$lib/components/custom/FormCard/form-card.svelte';
 	import { HTTP_METHODS } from '$lib/constants/root';
 	import { superForm } from 'sveltekit-superforms/client';
-	import type { PageData } from './$types';
 	import * as Form from '$lib/components/ui/form';
-	// export let data: PageData;
+
 	const { data } = $props();
-	console.info('DATA ????', data);
+
 	const form = superForm(data.form, {
 		customValidity: false
 	});
 	const { delayed, enhance, errors: formErrors, form: formData } = form;
+
 </script>
 
 <form action="?/login" method={HTTP_METHODS.POST} id="login" use:enhance novalidate>
