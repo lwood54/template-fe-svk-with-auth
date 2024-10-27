@@ -1,8 +1,9 @@
 import { PUBLIC_ENV } from '$env/static/public';
 const PRODUCTION_URL = 'https://kinectis-be.fly.dev';
 const DEV_URL = 'http://127.0.0.1:8080';
-// export const ROOT_URL = PUBLIC_ENV === 'development' ? DEV_URL : PRODUCTION_URL;
-export const ROOT_URL = PRODUCTION_URL;
+export const ROOT_URL = PUBLIC_ENV === 'development' ? DEV_URL : PRODUCTION_URL;
+// export const ROOT_URL = PRODUCTION_URL;
+// export const ROOT_URL = DEV_URL;
 
 export const Route = {
   home: '/',
