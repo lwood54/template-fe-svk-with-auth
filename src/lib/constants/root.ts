@@ -31,6 +31,8 @@ export const Api = {
 	}
 } as const;
 
+// TODO: instead of adding routes to different arrays, just use /public in the route, anything not public will be private
+// then, inside the hook, check routeId if it includes /public, if so, skip auth check
 // ROUTES FOR AUTHENTICATION
 export const AUTH_ROUTES = [Route.login, Route.signup];
 

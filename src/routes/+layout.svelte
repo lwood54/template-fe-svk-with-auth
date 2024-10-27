@@ -3,13 +3,15 @@
 	import '../app.css';
 	import { ModeWatcher } from 'mode-watcher';
 	import type { PageData } from './$types';
+	import { user } from '$lib/store/user.svelte';
 
 	let { children, data } = $props<{ data: PageData }>();
-	const { isLoggedIn } = data;
 
-	console.info('isLoggedIn [layout page]', isLoggedIn);
+	$effect(() => {
+		user.isLoggedIn = data.isLoggedIn;
+	});
 </script>
 
 <ModeWatcher />
-<Header {isLoggedIn} />
+<Header />
 {@render children()}

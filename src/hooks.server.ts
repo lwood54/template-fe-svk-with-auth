@@ -6,24 +6,23 @@ import { sequence } from '@sveltejs/kit/hooks';
 
 export const authenticate: Handle = async ({ event, resolve }) => {
 	const token = event.cookies.get('token');
-	const hasToken = Boolean(token);
 	const routeId = event.route.id;
 	const isAuthRoute = AUTH_ROUTES.some((route) => routeId === route);
 	const isPublicRoute = PUBLIC_ROUTES.some((route) => routeId === route);
-	// console.count("AUTH MIDDEWARE RUNNING!!!!")
-	console.info('auth hook check 1', {hasToken, isAuthRoute, routeId, isPublicRoute});
-	if (!token && !isAuthRoute && routeId !== Route.home && !isPublicRoute) {
-		console.info('auth hook check 2', {hasToken, isAuthRoute, routeId, isPublicRoute});
+	const isLoggedIn = isLoggedInWithCookies(token, SECRET);
+	console.log('HOOK: isLoggedIn ========>', { isLoggedIn, routeId, isAuthRoute, isPublicRoute });
+	if (!isLoggedIn && !isAuthRoute && routeId !== Route.home && !isPublicRoute) {
+		console.info('GETTING HERE????????????????');
 		throw redirect(307, `${Route.login}?redirected=true`);
 	}
-
-	const isLoggedIn = isLoggedInWithCookies(token, SECRET);
-	// console.info('auth hook check 3', {isLoggedIn, hasToken});
+	console.info('HOOK 2???');
+	if (isLoggedIn && routeId === Route.logout) {
+		event.cookies.delete('token', { path: '/' });
+		throw redirect(307, Route.login);
+	}
 	if (isLoggedIn && isAuthRoute) {
-		console.info('auth hook check 4', {isLoggedIn, isAuthRoute});
 		throw redirect(307, Route.home);
 	}
-	console.info('auth hook check 5', {isLoggedIn, isAuthRoute, isPublicRoute, routeId, hasToken});
 	return await resolve(event);
 };
 

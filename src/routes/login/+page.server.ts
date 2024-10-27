@@ -24,7 +24,6 @@ export const actions: Actions = {
 	login: async ({ cookies, fetch, request }) => {
 		const form = await superValidate(request, zod(userLoginSchema));
 		if (!form.valid) {
-			console.info('form not valid', form);
 			return fail(400, { form });
 		}
 
@@ -66,5 +65,6 @@ export const actions: Actions = {
 	logout: async ({ cookies }) => {
 		cookies.delete('email', { path: '/' });
 		cookies.delete('token', { path: '/' });
+		throw redirect(307, Route.login);
 	}
 };
