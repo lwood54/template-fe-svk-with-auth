@@ -1,4 +1,4 @@
-import { SECRET, VERCEL_COMMIT_REF } from '$env/static/private';
+import { SECRET } from '$env/static/private';
 import { decryptFromCookieFormat } from '$lib/helpers/utilities/auth';
 import type { LayoutServerLoadEvent } from './$types';
 
@@ -8,7 +8,6 @@ export const load = async ({ cookies }: LayoutServerLoadEvent) => {
     cookieToken && SECRET ? decryptFromCookieFormat(cookieToken, SECRET) : undefined;
   const isLoggedIn = Boolean(decryptedToken?.isOk());
   return {
-    isLoggedIn,
-    deploymentGitBranch: VERCEL_COMMIT_REF
+    isLoggedIn
   };
 };
