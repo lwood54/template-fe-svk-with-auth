@@ -1,3 +1,6 @@
 export const user = $state({
-	isLoggedIn: false
+  isLoggedIn: false,
+  email: '',
+  firstName: '',
+  lastName: ''
 });

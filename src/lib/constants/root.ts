@@ -2,8 +2,6 @@ import { PUBLIC_ENV } from '$env/static/public';
 const PRODUCTION_URL = 'https://kinectis-be.fly.dev';
 const DEV_URL = 'http://127.0.0.1:8080';
 export const ROOT_URL = PUBLIC_ENV === 'development' ? DEV_URL : PRODUCTION_URL;
-// export const ROOT_URL = PRODUCTION_URL;
-// export const ROOT_URL = DEV_URL;
 
 export const Route = {
   home: '/',
@@ -15,8 +13,10 @@ export const Route = {
     edit: '/user/edit'
   },
   ping: {
-    root: '/ping',
     auth: '/ping-auth'
+  },
+  public: {
+    ping: '/public/ping'
   }
 } as const;
 
@@ -26,7 +26,7 @@ export const Api = {
     logout: `${ROOT_URL}${Route.logout}`,
     signup: `${ROOT_URL}${Route.signup}`
   },
-  ping: `${ROOT_URL}${Route.ping.root}`,
+  ping: `${ROOT_URL}${Route.public.ping}`,
   authPing: `${ROOT_URL}${Route.ping.auth}`,
   user: {
     root: `${ROOT_URL}${Route.user.root}`
